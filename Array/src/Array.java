@@ -50,4 +50,39 @@ public class Array {
 
         size++;
     }
+
+    //Query the element at the index position
+    public int get(int index) {
+        if (index < 0 || index > size) {
+            throw new IllegalArgumentException("Add faild. Require index >=0 and index <= " +
+                    "size");
+        }
+
+        return data[index];
+    }
+
+    //Change the element at the index position
+    public void set(int index, int e) {
+        if (index < 0 || index > size) {
+            throw new IllegalArgumentException("Add faild. Require index >=0 and index <= " +
+                    "size");
+        }
+        data[index] = e;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        res.append(String.format("Array: size = %d, capacity = %d\n", size, data.length));
+        res.append('[');
+        for (int i = 0; i < size; i++) {
+            res.append(data[i]);
+            if (i != size - 1) {
+                res.append(", ");
+            }
+        }
+        res.append(']');
+        return res.toString();
+    }
 }
+
