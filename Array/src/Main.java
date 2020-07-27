@@ -22,7 +22,7 @@ public class Main {
         arr.removeFirst();
         System.out.println(arr);
 
-        arr.removeElement(4);
-        System.out.println(arr);
+//        arr.removeElement(4);
+//        System.out.println(arr);
     }
 }
