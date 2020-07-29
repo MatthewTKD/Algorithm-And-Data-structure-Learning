@@ -1,9 +1,9 @@
-public class Array {
-    private int[] data;
+public class Array<E> {
+    private E[] data;
     private int size;
 
     public Array(int capacity) {
-        this.data = new int[capacity];
+        this.data = (E[])new Object[capacity];
         size = 0;
     }
 
@@ -24,16 +24,16 @@ public class Array {
     }
 
     // add an element to the end of the array
-    public void addLast(int e) {
+    public void addLast(E e) {
         add(size, e);
     }
 
-    public void addFirst(int e) {
+    public void addFirst(E e) {
         add(0, e);
     }
 
     // Insert element e at index
-    public void add(int index, int e) {
+    public void add(int index, E e) {
         if (size == data.length) {
             throw new IllegalArgumentException("AddLast failed. Array is full");
         }
@@ -52,7 +52,7 @@ public class Array {
     }
 
     //Query the element at the index position
-    public int get(int index) {
+    public E get(int index) {
         if (index < 0 || index > size) {
             throw new IllegalArgumentException("Get failed. Require index >=0 and index <= " +
                     "size");
@@ -62,7 +62,7 @@ public class Array {
     }
 
     //Change the element at the index position
-    public void set(int index, int e) {
+    public void set(int index, E e) {
         if (index < 0 || index > size) {
             throw new IllegalArgumentException("Set failed. Require index >=0 and index <= " +
                     "size");
@@ -71,9 +71,9 @@ public class Array {
     }
 
     // Find weather there is element e in the array
-    public boolean contains(int e) {
+    public boolean contains(E e) {
         for (int i = 0; i < size; i ++) {
-            if (data[i] == e) {
+            if (data[i].equals(e)) {
                 return true;
             }
         }
@@ -81,39 +81,40 @@ public class Array {
     }
 
     // Find the index of element e in the array, return -1 if not found
-    public int find(int e) {
+    public int find(E e) {
         for (int i = 0; i < size; i ++) {
-            if (data[i] == e){
+            if (data[i].equals(e)){
                 return i;
             }
         }
         return -1;
     }
     // Remove the element at index position and return it
-    public int remove(int index) {
+    public E remove(int index) {
         if (index < 0 || index > size) {
             throw new IllegalArgumentException("Add failed. Require index >=0 and index <= " +
                     "size");
         }
 
-        int ret = data[index];
+        E ret = data[index];
         for (int i = index + 1; i < size; i ++) {
             data[i - 1] = data[i];
         }
 
         size --;
+        data[size] = null; // loitering objects != memory leak
         return ret;
     }
-    public int removeFirst() {
+    public E removeFirst() {
         return remove(0);
     }
-    public int removeLast() {
+    public E removeLast() {
         return remove(size - 1);
     }
 
     // Remove the element e in the array, and return true if deleted successfully or return
     // false
-    public boolean removeElement(int e) {
+    public boolean removeElement(E e) {
         int index = find(e);
         if (index != -1) {
             remove(index);
@@ -136,5 +137,6 @@ public class Array {
         res.append(']');
         return res.toString();
     }
+
 }
 
