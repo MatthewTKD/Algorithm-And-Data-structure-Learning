@@ -34,13 +34,14 @@ public class Array<E> {
 
     // Insert element e at index
     public void add(int index, E e) {
-        if (size == data.length) {
-            throw new IllegalArgumentException("AddLast failed. Array is full");
-        }
 
         if (index < 0 || index > size) {
             throw new IllegalArgumentException("Add failed. Require index >=0 and index <= " +
                     "size");
+        }
+
+        if (size == data.length) {
+            resize(2 * data.length);
         }
 
         for (int i = size - 1; i >= index; i--) {
@@ -103,6 +104,11 @@ public class Array<E> {
 
         size --;
         data[size] = null; // loitering objects != memory leak
+
+        if (size == data.length / 2) {
+            resize(data.length / 2);
+        }
+
         return ret;
     }
     public E removeFirst() {
@@ -123,6 +129,14 @@ public class Array<E> {
         return false;
     }
 
+    private void resize(int newCapacity) {
+        E[] newData = (E[]) new Object[newCapacity];
+        for (int i = 0; i < size; i ++) {
+            newData[i] = data[i];
+        }
+        data = newData;
+    }
+
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
@@ -139,4 +153,3 @@ public class Array<E> {
     }
 
 }
-
