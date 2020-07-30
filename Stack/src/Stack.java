@@ -1,4 +1,9 @@
-package PACKAGE_NAME;
+public interface Stack<E> {
 
-public interface Stack {
+    int getSize();
+    boolean isEmpty();
+    void push(E e);
+    E pop();
+    E peek();
+
 }
