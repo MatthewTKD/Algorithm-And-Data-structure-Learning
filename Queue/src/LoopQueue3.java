@@ -1,60 +1,60 @@
-// 使用size, 不浪费空间
-// size = 0 -> Queue为空
-// size = data.length -> Queue满了
-public class LoopQueue2<E> implements Queue<E> {
+// 不维护size, 只是使用front和tail，浪费一个空间
+// tail = front -> Queue is empty
+// (tail + 1) % data.length = front -> Queue is full
+public class LoopQueue3<E> implements Queue<E> {
 
     E[] data;
     private int front;
     private int tail;
-    private int size;
 
-    public LoopQueue2(int capacity) {
-        data = (E[])new Object[capacity];
+    public LoopQueue3(int capacity) {
+        data = (E[])new Object[capacity + 1];
         front = 0;
         tail = 0;
-        size = 0;
     }
 
-    public LoopQueue2(){
+    public LoopQueue3() {
         this(10);
     }
 
-
     @Override
     public int getSize() {
-        return size;
+        if (tail > front) {
+            return tail - front;
+        } else {
+            return data.length - front + tail;
+        }
     }
 
     @Override
     public boolean isEmpty() {
-        return size == 0;
+        return tail == front;
     }
 
     public int getCapacity() {
-        return data.length;
+        return data.length - 1;
     }
 
     @Override
     public void enqueue(E e) {
-        if (size == getCapacity()) {
-            resize(data.length * 2);
+        if ((tail + 1) % data.length == front) {
+            resize(getCapacity() * 2);
         }
         data[tail] = e;
         tail = (tail + 1) % data.length;
-        size ++;
     }
 
     @Override
     public E dequeue() {
         if (isEmpty()) {
-            throw new IllegalArgumentException("Cannot dequeue from an  empty queue");
+            throw new IllegalArgumentException("Cannot dequeue from an empty queue");
         }
+
         E ret = data[front];
         data[front] = null;
         front = (front + 1) % data.length;
-        size --;
 
-        if (size == getCapacity() / 4 && getCapacity() / 2 != 0) {
+        if (getSize() == getCapacity() / 4 && getCapacity() / 2 != 0) {
             resize(getCapacity() / 2);
         }
         return ret;
@@ -65,27 +65,30 @@ public class LoopQueue2<E> implements Queue<E> {
         if (isEmpty()) {
             throw new IllegalArgumentException("Queue is empty");
         }
+
         return data[front];
     }
 
-    private void resize(int newCapacity) {
-        E[] newData = (E[])new Object[newCapacity];
-        for(int i = 0; i < size; i ++) {
-            newData[i] = data[(front + i) % data.length];
+    public void resize(int newCapacity) {
+        E[] newData = (E[])new Object[newCapacity + 1];
+        int size = getSize();
+        for (int i = 0; i < size; i ++) {
+            newData[i] = data[(i + front) % data.length];
         }
+        data = newData;
         front = 0;
         tail = size;
-        data = newData;
     }
+
 
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
-        res.append(String.format("Queue2: size = %d, capacity = %d \n", size, getCapacity()));
+        res.append(String.format("Queue3: size = %d, capacity = %d \n", getSize(), getCapacity()));
         res.append("front [");
-        for (int i = 0; i < size; i ++) {
-            res.append(data[(front + i) % data.length]);
-            if (i != size - 1) {
+        for (int i = front; i != tail; i = (i + 1) % data.length) {
+            res.append(i);
+            if (i != tail - 1) {
                 res.append(", ");
             }
         }
@@ -93,8 +96,9 @@ public class LoopQueue2<E> implements Queue<E> {
         return res.toString();
     }
 
+
     public static void main(String[] args) {
-        LoopQueue2<Integer> queue = new LoopQueue2<>();
+        LoopQueue3<Integer> queue = new LoopQueue3<>();
 
         for (int i = 0; i < 10; i ++) {
             queue.enqueue(i);
