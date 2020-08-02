@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c790388e-be19-4da8-9a9e-8a80ebded740" name="Default Changelist" comment="Vilid-Parentheses" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1fUz1OvuxIbP3Ai3TOCoovXwKIf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Solution" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Solution" />
+      <module name="Vilid-Parentheses" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Solution" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c790388e-be19-4da8-9a9e-8a80ebded740" name="Default Changelist" comment="" />
+      <created>1596287243712</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596287243712</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Vilid-Parentheses" />
+    <option name="LAST_COMMIT_MESSAGE" value="Vilid-Parentheses" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="371" y="101" key="CommitChangelistDialog2" timestamp="1596288468124">
+      <screen x="0" y="23" width="1920" height="1011" />
+    </state>
+    <state x="371" y="101" key="CommitChangelistDialog2/-1440.23.1440.877/0.23.1920.1011@0.23.1920.1011" timestamp="1596288468124" />
+    <state width="1878" height="2" key="GridCell.Tab.0.bottom" timestamp="1596288527126">
+      <screen x="0" y="23" width="1920" height="1011" />
+    </state>
+    <state width="1878" height="2" key="GridCell.Tab.0.bottom/-1440.23.1440.877/0.23.1920.1011@0.23.1920.1011" timestamp="1596288527126" />
+    <state width="1878" height="2" key="GridCell.Tab.0.center" timestamp="1596288527126">
+      <screen x="0" y="23" width="1920" height="1011" />
+    </state>
+    <state width="1878" height="2" key="GridCell.Tab.0.center/-1440.23.1440.877/0.23.1920.1011@0.23.1920.1011" timestamp="1596288527126" />
+    <state width="1878" height="2" key="GridCell.Tab.0.left" timestamp="1596288527125">
+      <screen x="0" y="23" width="1920" height="1011" />
+    </state>
+    <state width="1878" height="2" key="GridCell.Tab.0.left/-1440.23.1440.877/0.23.1920.1011@0.23.1920.1011" timestamp="1596288527125" />
+    <state width="1878" height="2" key="GridCell.Tab.0.right" timestamp="1596288527126">
+      <screen x="0" y="23" width="1920" height="1011" />
+    </state>
+    <state width="1878" height="2" key="GridCell.Tab.0.right/-1440.23.1440.877/0.23.1920.1011@0.23.1920.1011" timestamp="1596288527126" />
+    <state width="1878" height="344" key="GridCell.Tab.1.bottom" timestamp="1596288527119">
+      <screen x="0" y="23" width="1920" height="1011" />
+    </state>
+    <state width="1878" height="344" key="GridCell.Tab.1.bottom/-1440.23.1440.877/0.23.1920.1011@0.23.1920.1011" timestamp="1596288527119" />
+    <state width="1878" height="344" key="GridCell.Tab.1.center" timestamp="1596288527118">
+      <screen x="0" y="23" width="1920" height="1011" />
+    </state>
+    <state width="1878" height="344" key="GridCell.Tab.1.center/-1440.23.1440.877/0.23.1920.1011@0.23.1920.1011" timestamp="1596288527118" />
+    <state width="1878" height="344" key="GridCell.Tab.1.left" timestamp="1596288527118">
+      <screen x="0" y="23" width="1920" height="1011" />
+    </state>
+    <state width="1878" height="344" key="GridCell.Tab.1.left/-1440.23.1440.877/0.23.1920.1011@0.23.1920.1011" timestamp="1596288527118" />
+    <state width="1878" height="344" key="GridCell.Tab.1.right" timestamp="1596288527119">
+      <screen x="0" y="23" width="1920" height="1011" />
+    </state>
+    <state width="1878" height="344" key="GridCell.Tab.1.right/-1440.23.1440.877/0.23.1920.1011@0.23.1920.1011" timestamp="1596288527119" />
+  </component>
+</project>
