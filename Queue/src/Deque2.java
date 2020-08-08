@@ -1,21 +1,21 @@
-// 实现Deque(Double ended que)双端队列
-// front == tail -> deque is empty
-// front == (tail + 1) % data.length -> deque is full
-// 浪费一个空间
-public class Deque<E> {
+// Deque更优雅的实现方式
+// 使用size, 不浪费空间
+// size = 0 -> Queue为空
+// size = data.length -> Queue满了
+public class Deque2<E> {
 
     E[] data;
     private int front;
     private int tail;
     private int size;
 
-    public Deque(int capacity) {
+    public Deque2(int capacity) {
         data = (E[])new Object[capacity + 1];
         front = 0;
         tail = 0;
         size = 0;
     }
-    public Deque() {
+    public Deque2() {
         this(10);
     }
     public int getSize() {
@@ -23,7 +23,7 @@ public class Deque<E> {
     }
 
     public int getCapacity() {
-        return data.length - 1;
+        return data.length;
     }
 
     public E getFront() {
@@ -34,24 +34,29 @@ public class Deque<E> {
         return data[front];
     }
 
+    public E getLast() {
+        if (isEmpty()) {
+            throw new IllegalArgumentException("Deque is empty");
+        }
+        int index = tail == 0 ? data.length - 1 : tail - 1;
+        return data[index];
+    }
+
     public boolean isEmpty() {
-        return front == tail;
+        return size == 0;
     }
 
     public void addFront(E e) {
-        if ((tail + 1) % data.length == front) {
+        if (size == getCapacity()) {
             resize(getCapacity() * 2);
         }
-        front = front - 1;
-        if (front == -1) {
-            front = front + 1 + getCapacity();
-        }
+        front = front == 0 ? data.length - 1 : front - 1;
         data[front] = e;
         size ++;
     }
 
     public void addLast(E e) {
-        if ((tail + 1) % data.length == front) {
+        if (size == getCapacity()) {
             resize(getCapacity() * 2);
         }
         data[tail] = e;
@@ -59,10 +64,11 @@ public class Deque<E> {
         size ++;
     }
 
-    public void removeFront() {
+    public E removeFront() {
         if (isEmpty()) {
             throw new IllegalArgumentException("Deque is empty");
         }
+        E ret = data[front];
         data[front] = null;
         front = (front + 1) % data.length;
         size --;
@@ -70,18 +76,24 @@ public class Deque<E> {
         if (getSize() / 4 == getCapacity() && getCapacity() / 2 != 0) {
             resize(getCapacity() / 2);
         }
+
+        return ret;
     }
 
-    public void removeLast() {
+    public E removeLast() {
         if (isEmpty()) {
             throw new IllegalArgumentException("Deque is empty");
         }
-        tail = tail - 1;
-        if (tail == -1) {
-            tail = tail + 1 + getCapacity();
-        }
+        tail = tail == 0 ? data.length - 1 : tail - 1;
+        E ret = data[tail];
         data[tail] = null;
         size --;
+
+        if (getSize() / 4 == getCapacity() && getCapacity() / 2 != 0) {
+            resize(getCapacity() / 2);
+        }
+
+        return ret;
     }
 
     private void resize(int newCapacity) {
@@ -103,10 +115,9 @@ public class Deque<E> {
         res.append(String.format("Deque: size = %d, capacity = %d \n", size,
                 getCapacity()));
         res.append("front [");
-        for (int i = front; i != tail;) {
-            res.append(data[i]);
-            i = (i + 1) % data.length;
-            if (i != tail) {
+        for (int i = 0; i < size; i ++) {
+            res.append(data[(i + front) % data.length]);
+            if (i != size - 1) {
                 res.append(", ");
             }
         }
@@ -116,16 +127,28 @@ public class Deque<E> {
 
 
     public static void main(String[] args) {
-        Deque<Integer> queue = new Deque<>();
+        Deque2<Integer> queue2 = new Deque2<>();
 
-        for (int i = 0; i < 10; i ++) {
-            queue.addLast(i);
-            System.out.println(queue);
-
-            if (i % 3 == 2) {
-                queue.removeLast();
-                System.out.println(queue);
+        // 偶数从队尾加入，奇数从队首加入
+        for (int i = 0; i < 16; i ++) {
+            if (i % 2 == 0) {
+                queue2.addLast(i);
+            } else {
+                queue2.addFront(i);
             }
+            System.out.println(queue2);
+
+        }
+
+        System.out.println();
+        // 从队首和队尾轮流删除元素
+        for (int i = 0; !queue2.isEmpty(); i ++) {
+            if (i % 2 == 0) {
+                queue2.removeFront();
+            } else {
+                queue2.removeLast();
+            }
+            System.out.println(queue2);
         }
     }
 }
