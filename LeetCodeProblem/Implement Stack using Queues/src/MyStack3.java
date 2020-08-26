@@ -1,24 +1,22 @@
 import java.util.LinkedList;
 import java.util.Queue;
-// push复杂度为O(n)
-// pop复杂度为O(1)
-class MyStack {
+// 只用一个队列
+class MyStack3 {
     private Queue<Integer> queue1;
 
     /** Initialize your data structure here. */
-    public MyStack() {
+    public MyStack3() {
         queue1 = new LinkedList<>();
     }
 
     /** Push element x onto stack. */
     public void push(int x) {
-        Queue<Integer> queue2 = new LinkedList<>();
-        queue2.add(x);
-        while (!queue1.isEmpty()) {
-            queue2.add(queue1.remove());
+        // 首先将x入队
+        queue1.add(x);
+        // 执行n-1次入队再出队的操作
+        for (int i = 1; i < queue1.size(); i ++) {
+            queue1.add(queue1.remove());
         }
-
-        queue1 = queue2;  // 让q1指向q2
     }
 
     /** Removes the element on top of the stack and returns that element. */
