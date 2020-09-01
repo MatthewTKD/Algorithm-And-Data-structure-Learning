@@ -1,6 +1,6 @@
-// 使用size, 但是浪费了一个空间
+// 不使用size, 但是浪费了一个空间
 // front == tail -> Queue为空
-// front == tail + 1 -> Queue满了
+// front == (tail + 1) % data.length -> Queue满了
 public class LoopQueue<E> implements Queue<E> {
 
     private E[] data;
