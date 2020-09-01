@@ -2,7 +2,7 @@ import javax.print.attribute.standard.SheetCollate;
 
 // LinkedList递归实现
 public class LinkedListR<E> {
-    class Node{
+    class Node {
         public E e;
         public Node next;
 
@@ -12,7 +12,7 @@ public class LinkedListR<E> {
         }
 
         public Node(E e) {
-            this(e,null);
+            this(e, null);
         }
 
         public Node() {
@@ -43,13 +43,13 @@ public class LinkedListR<E> {
 
         head = add(head, index, e);
 
-        size ++;
+        size++;
     }
 
     // 以node为头节点在index位置插入元素e, 递归算法
     private Node add(Node node, int index, E e) {
         if (index == 0) {
-            return new Node(e, null);
+            return new Node(e, node);
         }
 
         node.next = add(node.next, index - 1, e);
@@ -58,7 +58,7 @@ public class LinkedListR<E> {
     }
 
     public void addFirst(E e) {
-        add(0,e);
+        add(0, e);
     }
 
     public void addLast(E e) {
@@ -71,7 +71,7 @@ public class LinkedListR<E> {
         }
 
         head = remove(head, index);
-        size --;
+        size--;
     }
 
     // 删除以node为头节点的index位置出的元素
@@ -90,7 +90,7 @@ public class LinkedListR<E> {
     }
 
     public void removeLast() {
-        remove(size);
+        remove(size - 1);
     }
 
     public E get(int index) {
@@ -128,7 +128,7 @@ public class LinkedListR<E> {
     }
 
     private void set(Node node, int index, E e) {
-        if (index == 0 ) {
+        if (index == 0) {
             node.e = e;
         }
 
@@ -167,13 +167,16 @@ public class LinkedListR<E> {
     public static void main(String[] args) {
 
         LinkedListR<Integer> list = new LinkedListR<>();
-        for(int i = 0 ; i < 10 ; i ++)
-            list.addFirst(i);
+        for (int i = 0; i < 10; i++) {
 
-        while(!list.isEmpty()) {
+            list.addFirst(i);
+            System.out.println(list);
+
+        }
+        while (!list.isEmpty()) {
             list.removeLast();
             System.out.println(list);
-        }
 
+        }
     }
 }
