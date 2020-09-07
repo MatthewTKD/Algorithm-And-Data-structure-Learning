@@ -19,8 +19,8 @@ public class SortingHelper {
 //            InsertionSort.sort(arr);
         if(sortname.equals("MergeSort"))
             MergeSort.sort(arr);
-        else if(sortname.equals("MergeSort2"))
-            MergeSort.sort2(arr);
+//        else if(sortname.equals("MergeSort2"))
+//            MergeSort.sort2(arr);
         long endTime = System.nanoTime();
 
         double time = (endTime - startTime) / 1000000000.0;
