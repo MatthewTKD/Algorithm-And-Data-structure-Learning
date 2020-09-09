@@ -4,11 +4,13 @@ import java.util.Arrays;
 public class MergeSort {
     private MergeSort() {}
 
+    // 自顶向上进行排序
     public static <E extends Comparable<E>> void sort(E[] arr) {
-        sort(arr, 0, arr.length - 1);
+        E[] temp = Arrays.copyOf(arr, arr.length);
+        sort(arr, 0, arr.length - 1, temp);
     }
 
-    private static <E extends Comparable<E>> void sort(E[] arr, int l, int r) {
+    private static <E extends Comparable<E>> void sort(E[] arr, int l, int r, E[] temp) {
 
         if (l >= r) {
             return;
@@ -24,67 +26,37 @@ public class MergeSort {
 //        }
 
         int mid = l + (r - l) / 2;  // 本来可以写成(l + r) / 2 , 但(l + r)可能造成整型溢出
-        sort(arr, l, mid);
-        sort(arr, mid + 1, r);
+        sort(arr, l, mid, temp);
+        sort(arr, mid + 1, r, temp);
 
         // 优化merge的执行次数
         if (arr[mid].compareTo(arr[mid + 1]) > 0) {
-            merge(arr, l, mid, r);
+            merge(arr, l, mid, r, temp);
         }
     }
 
-    // 合并两个有序的区间 arr[l, mid] 和 arr[mid + 1, r]
-    private static <E extends Comparable<E>> void merge(E[] arr, int l, int mid, int r) {
-        E[] temp = Arrays.copyOfRange(arr, l, r + 1); // copyOfRange是左闭右开的
+    // 自底向上进行排序bottomUp
+    public static <E extends Comparable<E>> void sortBU(E[] arr) {
+        E[] temp = Arrays.copyOf(arr, arr.length);
+        int n = arr.length;
 
-        int i = l, j = mid + 1;
+        for (int sz = 1; sz < n; sz += sz) {
 
-        for (int k = l; k <= r; k++) {
-            if (i > mid) {
-                arr[k] = temp[j - l];
-                j++;
-            } else if (j > r) {
-                arr[k] = temp[i - l];
-                i++;
-            } else if (temp[i - l].compareTo(temp[j - l]) <= 0) {
-                arr[k] = temp[i - l];
-                i++;
-            } else {
-                arr[k] = temp[j - l];
-                j++;
+            // i: 遍历合并两个区间的起始位置
+            // 合并[i, i + sz - 1], [i + sz, (Math.min((i + sz) + sz - 1, n - 1)]
+            // 减1是因为merge那里是闭区间
+            for (int i = 0; i + sz < n; i += sz + sz) {
+                if (arr[i + sz - 1].compareTo(arr[i + sz]) > 0) {
+                    merge(arr, i, i + sz - 1, Math.min((i + sz) + sz - 1, n - 1), temp);
+                }
             }
         }
     }
 
-    // 对内存进行优化
-    public static <E extends Comparable<E>> void sort2(E[] arr) {
-        E[] temp = Arrays.copyOf(arr, arr.length);
-        sort2(arr, 0, arr.length - 1, temp);
-    }
-
-    private static <E extends Comparable<E>> void sort2(E[] arr, int l, int r, E[] temp) {
-
-        if (l >= r) {
-            return;
-        }
-
-
-        int mid = l + (r - l) / 2;  // 本来可以写成(l + r) / 2 , 但(l + r)可能造成整型溢出
-        sort2(arr, l, mid, temp);
-        sort2(arr, mid + 1, r, temp);
-
-        // 优化merge的执行次数
-        if (arr[mid].compareTo(arr[mid + 1]) > 0) {
-            merge2(arr, l, mid, r, temp);
-        }
-    }
-
     // 合并两个有序的区间 arr[l, mid] 和 arr[mid + 1, r]
-    private static <E extends Comparable<E>> void merge2(E[] arr, int l, int mid, int r,
-                                                         E[] temp) {
-
-        System.arraycopy(arr, l, temp, l, r - l + 1);
-
+    private static <E extends Comparable<E>> void merge(E[] arr, int l, int mid, int r,
+                                                        E[] temp) {
+        System.arraycopy(arr, l, temp, l, r - l + 1); // 注: l与r是左闭右闭的
         int i = l, j = mid + 1;
 
         for (int k = l; k <= r; k++) {
@@ -103,23 +75,18 @@ public class MergeSort {
             }
         }
     }
+
     public static void main(String[] args){
 
-        int n = 6000000;
+        int n = 5000000;
 
         System.out.println("Random Array : ");
         Integer[] arr = ArrayGenerator.generateRandomArray(n, n);
         Integer[] arr2 = Arrays.copyOf(arr, arr.length);
 
         SortingHelper.sortTest("MergeSort", arr);
-        SortingHelper.sortTest("MergeSort2", arr2);
+        SortingHelper.sortTest("MergeSortBU", arr2);
 
 
-//        system.out.println("\nordered array : ");
-//        arr = arraygenerator.generateorderedarray(n);
-//        arr2 = arrays.copyof(arr, arr.length);
-
-//        SortingHelper.sortTest("MergeSort", arr);
-//        SortingHelper.sortTest("MergeSort2", arr2);
     }
 }
