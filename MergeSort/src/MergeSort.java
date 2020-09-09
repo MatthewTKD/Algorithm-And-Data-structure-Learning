@@ -2,7 +2,8 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class MergeSort {
-    private MergeSort() {}
+    private MergeSort() {
+    }
 
     // 自顶向上进行排序
     public static <E extends Comparable<E>> void sort(E[] arr) {
@@ -40,8 +41,13 @@ public class MergeSort {
         E[] temp = Arrays.copyOf(arr, arr.length);
         int n = arr.length;
 
-        for (int sz = 1; sz < n; sz += sz) {
+        // 使用插入排序进行优化
+        // 优化区间arr[i, i + 15]
+        for (int i = 0; i < n; i += 16) {
+            InsertionSort.sort(arr, i, Math.min(i + 15, n - 1));
+        }
 
+        for (int sz = 16; sz < n; sz += sz) {
             // i: 遍历合并两个区间的起始位置
             // 合并[i, i + sz - 1], [i + sz, (Math.min((i + sz) + sz - 1, n - 1)]
             // 减1是因为merge那里是闭区间
@@ -76,7 +82,7 @@ public class MergeSort {
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         int n = 5000000;
 
