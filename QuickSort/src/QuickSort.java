@@ -18,6 +18,21 @@ public class QuickSort {
         sort(arr, p + 1, r);
     }
 
+    public static <E extends Comparable<E>> void sort2(E[] arr) {
+        sort2(arr, 0, arr.length - 1);
+    }
+
+    // 使用InsertionSort进行"优化"
+    private static <E extends Comparable<E>> void sort2(E[] arr, int l, int r) {
+        if (r - l <= 15) {
+            InsertionSort.sort(arr, l, r);
+            return;
+        }
+        int p = partition(arr, l, r);
+        sort2(arr, l , p - 1);
+        sort2(arr, p + 1, r);
+    }
+
     private static <E extends Comparable<E>> int partition(E[] arr, int l, int r) {
         int j = l;
 
@@ -39,12 +54,13 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        int n = 100;
+        int n = 1000;
         Integer[] arr = ArrayGenerator.generateOrderedArray(n);
         Integer[] arr2 = Arrays.copyOf(arr, arr.length);
 
-        SortingHelper.sortTest("MergeSort", arr);
+//        SortingHelper.sortTest("MergeSort", arr);
         SortingHelper.sortTest("QuickSort", arr2);
+        SortingHelper.sortTest("QuickSort2", arr2);
     }
 }
 
