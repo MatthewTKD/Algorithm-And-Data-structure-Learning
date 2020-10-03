@@ -23,7 +23,8 @@ public class SortingHelper {
             MergeSort.sortBU(arr);
         else if (sortname.equals("QuickSort")) {
             QuickSort.sort(arr);
-        }else if (sortname.equals("QuickSort2")) {
+        }
+        else if (sortname.equals("QuickSort2")) {
             QuickSort.sort2(arr);
         }
         long endTime = System.nanoTime();
