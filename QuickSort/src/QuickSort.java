@@ -34,7 +34,6 @@ public class QuickSort {
 //        sort2(arr, l , p - 1);
 //        sort2(arr, p + 1, r);
 //    }
-
     public static <E extends Comparable<E>> void sort2twoWay(E[] arr) {
         Random random = new Random();
         sort2twoWay(arr, 0, arr.length - 1, random);
@@ -47,24 +46,23 @@ public class QuickSort {
         }
         int p = partition2(arr, l, r, random);
         sort2twoWay(arr, l, p - 1, random);
-        sort2twoWay(arr, p + 1, r, random);
+        sort(arr, p + 1, r, random);
     }
 
     private static <E extends Comparable<E>> int partition2(E[] arr, int l, int r,
                                                             Random random) {
-        // 生成[l, r]之间的随机索引
         int p = l + random.nextInt(r - l + 1);
+        swap(arr, l , p);
 
-        swap(arr, l, p);
-
-        // arr[l+1...i-1] <= v, arr[j + 1...r] >= v
         int i = l + 1, j = r;
+
+        // arr[l + 1, i - 1] <= v, arr[j + 1, r] >= v
         while (true) {
-            while (i <= j && arr[l].compareTo(arr[i]) > 0 ) {
+            while (i <= j && arr[i].compareTo(arr[l]) < 0 ) {
                 i ++;
             }
-            while (j >= i && arr[l].compareTo(arr[j]) < 0) {
-                j ++;
+            while (j >= i && arr[j].compareTo(arr[l]) > 0) {
+                j --;
             }
 
             if (i >= j) {
@@ -73,10 +71,10 @@ public class QuickSort {
 
             swap(arr, i, j);
             i ++;
-            j ++;
+            j --;
         }
 
-        swap(arr, l , j);
+        swap(arr, l, j);
         return j;
     }
 
@@ -105,15 +103,16 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        int n = 100000;
+        int n = 1000000;
         Integer[] arr = ArrayGenerator.generateOrderedArray(n);
         Integer[] arr2 = Arrays.copyOf(arr, arr.length);
+        Integer[] arr3 = ArrayGenerator.generateOrderedArray(n);
 //        Integer[] arr3 = ArrayGenerator.generateSpecialArray(n);
 //        Integer[] arr4 = Arrays.copyOf(arr3, arr3.length);
 
 //        SortingHelper.sortTest("MergeSort", arr);
-        SortingHelper.sortTest("QuickSort", arr);
-        SortingHelper.sortTest("QuickSort2", arr2);
+//        SortingHelper.sortTest("QuickSort", arr);
+        SortingHelper.sortTest("QuickSort2", arr);
     }
 }
 
