@@ -52,17 +52,17 @@ public class QuickSort {
     private static <E extends Comparable<E>> int partition2(E[] arr, int l, int r,
                                                             Random random) {
         int p = l + random.nextInt(r - l + 1);
-        swap(arr, l , p);
+        swap(arr, l, p);
 
         int i = l + 1, j = r;
 
         // arr[l + 1, i - 1] <= v, arr[j + 1, r] >= v
         while (true) {
-            while (i <= j && arr[i].compareTo(arr[l]) < 0 ) {
-                i ++;
+            while (i <= j && arr[i].compareTo(arr[l]) < 0) {
+                i++;
             }
             while (j >= i && arr[j].compareTo(arr[l]) > 0) {
-                j --;
+                j--;
             }
 
             if (i >= j) {
@@ -70,13 +70,51 @@ public class QuickSort {
             }
 
             swap(arr, i, j);
-            i ++;
-            j --;
+            i++;
+            j--;
         }
 
         swap(arr, l, j);
         return j;
     }
+
+    public static <E extends Comparable<E>> void sort3threeWay(E[] arr) {
+        Random random = new Random();
+        sort3threeWay(arr, 0, arr.length - 1, random);
+    }
+
+    private static <E extends Comparable<E>> void sort3threeWay(E[] arr, int l, int r,
+                                                                Random random) {
+        if (l >= r) {
+            return;
+        }
+
+        // 生成[l, r]之间的随机索引
+        int p = l + random.nextInt(r - l + 1);
+        swap(arr, l, p);
+
+        int lt = l, i = l + 1, gt = r + 1;
+        // arr[l + 1, lt] < v, arr[lt + 1, i - 1] == v, arr[gt, r] > v
+        while (i < gt) {
+            if (arr[i].compareTo(arr[l]) == 0) {
+                i++;
+            } else if (arr[i].compareTo(arr[l]) < 0) {
+                swap(arr, lt + 1, i);
+                lt++;
+                i++;
+            } else if (arr[i].compareTo(arr[l]) > 0) {
+                swap(arr, i, gt - 1);
+                gt--;
+            }
+        }
+
+        swap(arr, l, lt);
+        // partition结束
+
+        sort3threeWay(arr, l, lt - 1, random);
+        sort3threeWay(arr, gt, r, random);
+    }
+
 
     private static <E extends Comparable<E>> int partition(E[] arr, int l, int r, Random random) {
         // 生成[l, r]之间的随机索引
@@ -112,7 +150,8 @@ public class QuickSort {
 
 //        SortingHelper.sortTest("MergeSort", arr);
 //        SortingHelper.sortTest("QuickSort", arr);
-        SortingHelper.sortTest("QuickSort2", arr);
+//        SortingHelper.sortTest("QuickSort2twoWay", arr);
+        SortingHelper.sortTest("QuickSort3threeWay", arr);
     }
 }
 
