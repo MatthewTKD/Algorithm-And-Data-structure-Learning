@@ -35,42 +35,55 @@ public class QuickSort {
 //        sort2(arr, p + 1, r);
 //    }
 
-    public static <E extends Comparable<E>> void sort2(E[] arr) {
-        sort2(arr, 0, arr.length - 1);
+    public static <E extends Comparable<E>> void sort2twoWay(E[] arr) {
+        Random random = new Random();
+        sort2twoWay(arr, 0, arr.length - 1, random);
     }
 
-    // 以中间点为标定点的快速排序
-    private static <E extends Comparable<E>> void sort2(E[] arr, int l, int r) {
+    private static <E extends Comparable<E>> void sort2twoWay(E[] arr, int l, int r,
+                                                              Random random) {
         if (l >= r) {
             return;
         }
-        int p = partition2(arr, l, r);
-        sort2(arr, l, p - 1);
-        sort2(arr, p + 1, r);
+        int p = partition2(arr, l, r, random);
+        sort2twoWay(arr, l, p - 1, random);
+        sort2twoWay(arr, p + 1, r, random);
+    }
+
+    private static <E extends Comparable<E>> int partition2(E[] arr, int l, int r,
+                                                            Random random) {
+        // 生成[l, r]之间的随机索引
+        int p = l + random.nextInt(r - l + 1);
+
+        swap(arr, l, p);
+
+        // arr[l+1...i-1] <= v, arr[j + 1...r] >= v
+        int i = l + 1, j = r;
+        while (true) {
+            while (i <= j && arr[l].compareTo(arr[i]) > 0 ) {
+                i ++;
+            }
+            while (j >= i && arr[l].compareTo(arr[j]) < 0) {
+                j ++;
+            }
+
+            if (i >= j) {
+                break;
+            }
+
+            swap(arr, i, j);
+            i ++;
+            j ++;
+        }
+
+        swap(arr, l , j);
+        return j;
     }
 
     private static <E extends Comparable<E>> int partition(E[] arr, int l, int r, Random random) {
         // 生成[l, r]之间的随机索引
         int p = l + random.nextInt(r - l + 1);
         swap(arr, l, p);
-
-        int j = l;
-
-        // arr[l + 1, j] < v , arr[j + 1, i] > v
-        for (int i = l + 1; i <= r; i++) {
-            if (arr[i].compareTo(arr[l]) < 0) {
-                j++;
-                swap(arr, i, j);
-            }
-        }
-        swap(arr, l, j);
-        return j;
-    }
-
-    //以中间点为标定点的快速排序
-    private static <E extends Comparable<E>> int partition2(E[] arr, int l, int r
-    ) {
-        swap(arr, l, (l + r) / 2);
 
         int j = l;
 
@@ -92,15 +105,15 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        int n = 1000;
+        int n = 100000;
         Integer[] arr = ArrayGenerator.generateOrderedArray(n);
         Integer[] arr2 = Arrays.copyOf(arr, arr.length);
-        Integer[] arr3 = ArrayGenerator.generateSpecialArray(n);
-        Integer[] arr4 = Arrays.copyOf(arr3, arr3.length);
+//        Integer[] arr3 = ArrayGenerator.generateSpecialArray(n);
+//        Integer[] arr4 = Arrays.copyOf(arr3, arr3.length);
 
 //        SortingHelper.sortTest("MergeSort", arr);
-        SortingHelper.sortTest("QuickSort", arr3);
-        SortingHelper.sortTest("QuickSort2", arr4);
+        SortingHelper.sortTest("QuickSort", arr);
+        SortingHelper.sortTest("QuickSort2", arr2);
     }
 }
 

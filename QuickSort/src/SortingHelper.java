@@ -24,8 +24,8 @@ public class SortingHelper {
         else if (sortname.equals("QuickSort")) {
             QuickSort.sort(arr);
         }
-        else if (sortname.equals("QuickSort2")) {
-            QuickSort.sort2(arr);
+        else if (sortname.equals("QuickSort2twoWay")) {
+            QuickSort.sort2twoWay(arr);
         }
         long endTime = System.nanoTime();
 
