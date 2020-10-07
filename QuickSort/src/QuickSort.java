@@ -93,24 +93,24 @@ public class QuickSort {
         int p = l + random.nextInt(r - l + 1);
         swap(arr, l, p);
 
+        // arr[l + 1, lt] < v,  arr[lt + 1, i] == v,  arr[gt, r] > v
         int lt = l, i = l + 1, gt = r + 1;
-        // arr[l + 1, lt] < v, arr[lt + 1, i - 1] == v, arr[gt, r] > v
         while (i < gt) {
-            if (arr[i].compareTo(arr[l]) == 0) {
-                i++;
-            } else if (arr[i].compareTo(arr[l]) < 0) {
-                swap(arr, lt + 1, i);
-                lt++;
-                i++;
+            if (arr[i].compareTo(arr[l]) < 0) {
+                lt ++;
+                swap(arr, lt , i);
+                i ++;
             } else if (arr[i].compareTo(arr[l]) > 0) {
-                swap(arr, i, gt - 1);
-                gt--;
+                gt --;
+                swap(arr, gt, i);
+            } else {
+                i ++;
             }
         }
 
-        swap(arr, l, lt);
+        swap(arr, l , lt);
+        // arr[l, lt - 1] < 0,  arr[lt, gt - 1] == 0, arr[gt, r] > v
         // partition结束
-
         sort3threeWay(arr, l, lt - 1, random);
         sort3threeWay(arr, gt, r, random);
     }
