@@ -39,4 +39,26 @@ public class BinarySearch {
 
         return searchR(arr, mid + 1, r, target);
     }
+
+    // 查找 > target的最小值
+    public static <E extends Comparable<E>> int upper(E[] arr, E target) {
+        int l = 0, r = arr.length;
+        // 在arr[l, r]中查找target
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            if (arr[mid].compareTo(target) <= 0 ) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
+        }
+        return l;
+    }
+
+    public static void main(String[] args) {
+        Integer[] arr = {1, 1, 3, 3, 5, 5};
+        for(int i = 0; i <= 6; i ++)
+            System.out.print(BinarySearch.upper(arr, i) + " ");
+        System.out.println();
+    }
 }
