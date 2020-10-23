@@ -55,10 +55,21 @@ public class BinarySearch {
         return l;
     }
 
+    // 如果数组中存在target,返回所有相同的target中的最大索引
+    // 如果在数组中不存在target, 返回upper
+    // ceil[5.0] = 5 , ceil[5.5] = 6
+    public static <E extends Comparable<E>> int ceil(E[] arr, E target) {
+            int u = upper(arr, target);
+            if (u - 1 >= 0 && arr[u - 1].compareTo(target) == 0) {
+                return u - 1;
+            }
+            return u;
+    }
+
     public static void main(String[] args) {
         Integer[] arr = {1, 1, 3, 3, 5, 5};
         for(int i = 0; i <= 6; i ++)
-            System.out.print(BinarySearch.upper(arr, i) + " ");
+            System.out.print(BinarySearch.ceil(arr, i) + " ");
         System.out.println();
     }
 }
